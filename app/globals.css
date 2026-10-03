@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background-color: #090719;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  color: #eeebff;
+  font-family: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  background-color: #090719;
+  /* Two soft glows only — the page stays calm so the data is what you look at. */
+  background-image:
+    radial-gradient(60rem 36rem at 12% -8%, rgba(139, 108, 255, 0.22), transparent 70%),
+    radial-gradient(52rem 32rem at 100% 0%, rgba(76, 154, 255, 0.16), transparent 70%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(139, 108, 255, 0.45);
+}
+
+:focus-visible {
+  outline: 2px solid #9cc6ff;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-line bg-panel/85 backdrop-blur-sm;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-45;
+  }
+  .btn-primary {
+    @apply btn bg-violet text-white shadow-glow hover:bg-violet-deep;
+  }
+  .btn-ghost {
+    @apply btn border border-line bg-panel2/60 text-ink hover:border-violet/60;
+  }
+  .btn-danger {
+    @apply btn bg-danger/90 text-white hover:bg-danger;
+  }
+  .field {
+    @apply w-full rounded-xl border border-line bg-void/70 px-3.5 py-2.5 text-ink placeholder:text-dim focus:border-violet focus:outline-none;
+  }
+}
+
+/* A team just cleared a stage: one gentle pulse, then it settles. */
+@keyframes row-flash {
+  0% { box-shadow: inset 0 0 0 2px rgba(156, 198, 255, 0.9), 0 0 30px rgba(76, 154, 255, 0.45); background-color: rgba(76, 154, 255, 0.18); }
+  100% { box-shadow: inset 0 0 0 0 rgba(156, 198, 255, 0), 0 0 0 rgba(76, 154, 255, 0); }
+}
+.row-flash {
+  animation: row-flash 2.6s ease-out 1;
+}
+
+@keyframes live-ping {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+.live-ping {
+  animation: live-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row-flash, .live-ping { animation: none; }
+}
